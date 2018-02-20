@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Session["Name"] != null)
+{
+    <h2>
+        Welcome: @Session["Name"]
+    </h2>
+}

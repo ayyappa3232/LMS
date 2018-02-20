@@ -11,23 +11,49 @@ namespace LMS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Registrationtbl
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Designation { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public System.DateTime Dob { get; set; }
-        public string Country { get; set; }
-        public string State { get; set; }
-        public string Pincode { get; set; }
-        public string MobileNo { get; set; }
-        public bool IsAdmin { get; set; }
-        public string ProfilePic { get; set; }
 
-        public HttpPostedFileBase ImageFile { get; set; }
+        [Required(ErrorMessage = "Please Provide Name Field",AllowEmptyStrings =false)]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Please Provide Designation", AllowEmptyStrings = false)]
+        public string Designation { get; set; }
+
+        [RegularExpression(@"^([0-9a-zA-Z]([\+\-_\.][0-9a-zA-Z]+)*)+@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,3})$", ErrorMessage = "Please provide valid email id")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Please Provide Password",AllowEmptyStrings = false)]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+        [StringLength(50, MinimumLength = 8 , ErrorMessage = "Password must be 8 Character Long and Should Contain atleast 1 Numeric, 1 Alphabetical and 1 Special Characters($,@,%..)")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Please Provide Password", AllowEmptyStrings = false)]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+        public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Date_of_Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public System.DateTime Dob { get; set; }
+
+
+        public string Country { get; set; }
+
+
+        public string State { get; set; }
+
+
+        public string Pincode { get; set; }
+
+        [Required(ErrorMessage = "Please Enter a Valid Number", AllowEmptyStrings = false)]
+        public string MobileNo { get; set; }
+
+        public bool IsAdmin { get; set; }
+
+        public byte[] ProfilePic { get; set; }
     }
 }
